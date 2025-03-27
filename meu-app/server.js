@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const SECRET = "meusegredoseguro";
+
 const port = 3000;
 
 //Conexção ao banco de dados
@@ -48,5 +50,25 @@ app.post("/register", async (req, res) => {
   res.json({ mensagem: "Usuário cadastrado com sucesso!" });
 });
 
+//Rota de Login
+app.post("/login", async (req, res) => {
+  const { email, senha } = req.body;
+
+  const usuario = await User.findOne({ email });
+  if (!usuario) {
+    return res.status(400).json({ mensagem: "Usuário não encontrado" });
+  }
+
+  // Verificação de senha
+  const senhaValida = await bcrypt.compare(senha, usuario.senha);
+  if (!senhaValida) {
+    return res.status(400).json({ mensagem: "Senha incorreta" });
+  }
+
+  // Gerar token JWT
+  const token = jwt.sign({ id: usuario._id }, SECRET, { expiresIn: "1h" });
+
+  res.json({ mensagem: "Login bem-sucedido!", token });
+});
 // Iniciar servidor
-app.listen(3000, () => console.log("Servidor rodando na porta 5000"));
+app.listen(3000, () => console.log("Servidor rodando na porta 3000"));
