@@ -35,7 +35,7 @@ const Cadastro = () => {
         <h2>Cadastro</h2>
         <form onSubmit={handleCadastro}>
           <div>
-            <label>Email:</label>
+            <label>Email: </label>
             <input
               type="email"
               value={email}
@@ -44,7 +44,7 @@ const Cadastro = () => {
             />
           </div>
           <div>
-            <label>Senha:</label>
+            <label>Senha: </label>
             <input
               type="password"
               value={senha}
@@ -53,7 +53,7 @@ const Cadastro = () => {
             />
           </div>
           <div>
-            <label>Confirmar Senha:</label>
+            <label>Confirmar Senha: </label>
             <input
               type="password"
               value={confirmarSenha}
