@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
+app.use(express.json());
+
 const port = 3000;
 
 //Conexção ao banco de dados
