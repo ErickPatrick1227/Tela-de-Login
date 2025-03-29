@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,6 +17,11 @@ const Login = () => {
         senha,
       });
       setMensagem(response.data.mensagem);
+
+      // Se o login for bem-sucedido, redireciona para a página desejada
+      if (response.status === 200) {
+        navigate("/dashboard"); // Altere para a página que deseja redirecionar
+      }
     } catch (error) {
       setMensagem(error.response.data.mensagem || "Erro ao fazer login");
     }
