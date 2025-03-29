@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Cadastro = () => {
@@ -6,6 +7,8 @@ const Cadastro = () => {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [erro, setErro] = useState(false);
+  const navigate = useNavigate();
 
   const handleCadastro = async (e) => {
     e.preventDefault();
@@ -15,13 +18,10 @@ const Cadastro = () => {
       setMensagem("As senhas não coincidem.");
       return;
     }
-
     try {
-      const response = await axios.post("http://localhost:3000/register", {
-        email,
-        senha,
-      });
-      setMensagem(response.data.mensagem);
+      await axios.post("http://localhost:3000/register", { email, senha });
+      setMensagem("Cadastro realizado com sucesso!");
+      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       setMensagem(
         error.response?.data?.mensagem || "Erro ao cadastrar usuário"
