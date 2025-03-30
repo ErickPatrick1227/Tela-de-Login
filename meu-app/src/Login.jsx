@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -32,18 +32,20 @@ const Login = () => {
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div>
-            <label>Email:</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div>
-            <label>Senha:</label>
+            <label htmlFor="senha">Senha</label>
             <input
               type="password"
+              id="senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
